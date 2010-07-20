@@ -1,3 +1,5 @@
 SSHFS Shares Manager for Mac OS X
 
-There'll be something here soon. I promise :).
+A small work-in-progress helper for quick mounting of SSHFS shares.
+
+Released under BSD License. See source for more info.

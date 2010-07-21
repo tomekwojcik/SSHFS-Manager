@@ -197,7 +197,48 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>4C569B2B11F71FAD00A99BE8</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>AppController.m</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>4C569B3D11F7201500A99BE8</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>AppController.m</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>4C569B5E11F7227000A99BE8</string>
+						<key>history</key>
+						<array>
+							<string>4C569B2A11F71FAD00A99BE8</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1280, 677}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>0 60 1280 718 0 0 1280 778 </string>
+			</dict>
+		</dict>
+	</array>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -231,8 +272,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -283,8 +322,9 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>8</integer>
-									<integer>3</integer>
+									<integer>18</integer>
+									<integer>17</integer>
+									<integer>13</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -324,7 +364,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>AppController.m</string>
+								<string>userDefaults.plist</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -332,26 +372,26 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>AppController.m</string>
+										<string>userDefaults.plist</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>4C569B2311F71EE900A99BE8</string>
+										<string>4C569B5D11F7227000A99BE8</string>
 										<key>history</key>
 										<array>
 											<string>4CD6895C11EF30610089DC51</string>
 											<string>4CEEEBE811F0331A00F2B8D1</string>
-											<string>4CEEED0A11F0564200F2B8D1</string>
-											<string>4CEEED1A11F0575900F2B8D1</string>
 											<string>4C25417E11F446870030AF14</string>
 											<string>4C52101111F4731800CE97AC</string>
 											<string>4C52102F11F48E4200CE97AC</string>
 											<string>4C69EC7111F5D4DF00FD4123</string>
 											<string>4C2F78F411F6CB5F000C92F7</string>
-											<string>4C097C0F11F6F5DD0023680C</string>
 											<string>4C569B1E11F71EE900A99BE8</string>
 											<string>4C569B1F11F71EE900A99BE8</string>
-											<string>4C2F792011F6D400000C92F7</string>
+											<string>4C569B2F11F7201500A99BE8</string>
+											<string>4C569B3011F7201500A99BE8</string>
+											<string>4C569B4711F7206A00A99BE8</string>
+											<string>4C097C0F11F6F5DD0023680C</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -371,6 +411,17 @@
 											<string>4C569B2011F71EE900A99BE8</string>
 											<string>4C569B2111F71EE900A99BE8</string>
 											<string>4C569B2211F71EE900A99BE8</string>
+											<string>4C569B3211F7201500A99BE8</string>
+											<string>4C569B3311F7201500A99BE8</string>
+											<string>4C569B3411F7201500A99BE8</string>
+											<string>4C569B3511F7201500A99BE8</string>
+											<string>4C569B3611F7201500A99BE8</string>
+											<string>4C569B3711F7201500A99BE8</string>
+											<string>4C569B3811F7201500A99BE8</string>
+											<string>4C569B3911F7201500A99BE8</string>
+											<string>4C569B3A11F7201500A99BE8</string>
+											<string>4C569B3B11F7201500A99BE8</string>
+											<string>4C569B4811F7206A00A99BE8</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -543,7 +594,7 @@
 	<key>PerspectivesBarVisible</key>
 	<false/>
 	<key>PinnedNavigatorIdentifier</key>
-	<string>4C569B1D11F71EDA00A99BE8</string>
+	<string>4C569B2B11F71FAD00A99BE8</string>
 	<key>ShelfIsVisible</key>
 	<false/>
 	<key>SourceDescription</key>
@@ -566,9 +617,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>4C569B1D11F71EDA00A99BE8</string>
+		<string>4C569B4211F7201500A99BE8</string>
+		<string>4C569B4311F7201500A99BE8</string>
+		<string>4CD688B211EEF6080089DC51</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/bilbo/My Projects/SSHFS-Manager/SSHFS Manager.xcodeproj</string>
+		<string>4C569B2B11F71FAD00A99BE8</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 59 1280 719 0 0 1280 778 </string>
@@ -648,7 +703,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>4CD688B211EEF6080089DC51</string>
-				<string>4C097C1711F6F5DD0023680C</string>
+				<string>4C569B3F11F7201500A99BE8</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -930,7 +985,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>4C097C1E11F6F5DD0023680C</string>
+				<string>4C569B4011F7201500A99BE8</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>

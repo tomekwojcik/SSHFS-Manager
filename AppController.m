@@ -56,6 +56,8 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSTaskDidTerminateNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:nil];
 	[[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"sshfsPath"];
+	[[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"autoUpdate"];
+	[[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"autoUpdateInterval"];
 	
 	[[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
 	
@@ -337,13 +339,6 @@
 } // eof managedObjectContextDidSave:
 
 -(void)autoUpdateChangedFrom:(id)oldValue to:(id)newValue {
-	/*BOOL myNewValue = CFBooleanGetValue(newValue);
-	if (myNewValue == YES) {
-		[self setUpAutoUpdateTimer];
-	} else if ((myNewValue == NO) && (autoUpdateTimer != nil)) {
-		[autoUpdateTimer invalidate];
-		autoUpdateTimer = nil;
-	} // eof if()*/
 	if (newValue == kCFBooleanTrue) {
 		[self setUpAutoUpdateTimer];
 	} else if ((newValue == kCFBooleanFalse) && (autoUpdateTimer != nil)) {

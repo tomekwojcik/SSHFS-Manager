@@ -44,6 +44,7 @@
 		sshfsFinderPID = 0;
 		shareMounterPID = 0;
 		lastMountedLocalPath = nil;
+		autoUpdateTimer = nil;
 	} // eof if()
 	
 	return self;
@@ -62,6 +63,10 @@
 	[statusItemImage release]; statusItemImage = nil;
 	[currentTab release]; currentTab = nil;
 	[lastMountedLocalPath release]; lastMountedLocalPath = nil;
+	
+	if (autoUpdateTimer != nil) {
+		[autoUpdateTimer invalidate]; autoUpdateTimer = nil;
+	} // eof if()
 	
 	[super dealloc];
 } // eof dealloc
@@ -82,6 +87,8 @@
 	[self addObserver:self forKeyPath:@"currentTab" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@selector(tabChangedFrom:to:)];
 	[sharesController addObserver:self forKeyPath:@"selectionIndex" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@selector(sharesSelectionChangedFrom:to:)];
 	[preferences addObserver:self forKeyPath:@"sshfsPath" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@selector(sshfsPathChangedFrom:to:)];
+	[preferences addObserver:self forKeyPath:@"autoUpdate" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@selector(autoUpdateChangedFrom:to:)];
+	[preferences addObserver:self forKeyPath:@"autoUpdateInterval" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@selector(autoUpdateIntervalChangedFrom:to:)];
 	
 	NSSortDescriptor *sharesSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES] autorelease];
 	[sharesController setSortDescriptors:[NSArray arrayWithObject:sharesSortDescriptor]];
@@ -104,12 +111,15 @@
 	statusItemImage = [[NSImage alloc] initWithContentsOfFile:statusItemImgPath];
 	
 	statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-	//[statusItem setMenu:statusItemMenu];
 	[statusItem setMenu:[self statusItemMenu]];
 	[statusItem setImage:statusItemImage];
 	[statusItem setHighlightMode:YES];
 	[statusItem setLength:25.0];
 	[statusItem retain];
+	
+	if ([preferences boolForKey:@"autoUpdate"] == YES) {
+		[self setUpAutoUpdateTimer];
+	} // eof if()
 } // eof awakeFromNib
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(SEL)context {
@@ -326,6 +336,43 @@
 	[self refreshStatusItemMenu];
 } // eof managedObjectContextDidSave:
 
+-(void)autoUpdateChangedFrom:(id)oldValue to:(id)newValue {
+	/*BOOL myNewValue = CFBooleanGetValue(newValue);
+	if (myNewValue == YES) {
+		[self setUpAutoUpdateTimer];
+	} else if ((myNewValue == NO) && (autoUpdateTimer != nil)) {
+		[autoUpdateTimer invalidate];
+		autoUpdateTimer = nil;
+	} // eof if()*/
+	if (newValue == kCFBooleanTrue) {
+		[self setUpAutoUpdateTimer];
+	} else if ((newValue == kCFBooleanFalse) && (autoUpdateTimer != nil)) {
+		[autoUpdateTimer invalidate];
+		autoUpdateTimer = nil;
+	} // eof if()
+} // eof autoUpdateChangedFrom:to:
+
+-(void)autoUpdateIntervalChangedFrom:(NSNumber *)oldInterval to:(NSNumber *)newInterval {
+	[self setUpAutoUpdateTimer];
+} // eof autoUpdateIntervalChangedFrom:to:
+	
+-(void)setUpAutoUpdateTimer {
+	if (autoUpdateTimer != nil) {
+		[autoUpdateTimer invalidate];
+	} // eof if()
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+	NSTimeInterval timerInterval = [preferences integerForKey:@"autoUpdateInterval"] * 60;
+	NSDate *startDate = [NSDate dateWithTimeIntervalSinceNow:timerInterval];
+	NSLog(@"Initializing timer...");
+	autoUpdateTimer = [[NSTimer alloc] initWithFireDate:startDate interval:timerInterval target:self selector:@selector(fireTimer:) userInfo:nil repeats:YES];
+	NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+	[runLoop addTimer:autoUpdateTimer forMode:NSDefaultRunLoopMode];
+} // eof autoUpdateTimer
+
+-(void)fireTimer:(NSTimer *)aTimer {
+	[self refreshStatusItemMenu];
+} // eof testTimer
+
 -(IBAction)doMountShare:(id)sender {
 	if ([sender state] == NSOnState) {
 		return;
@@ -343,7 +390,6 @@
 		NSTask *shareMounterTask = [[NSTask alloc] init];
 		[shareMounterTask setCurrentDirectoryPath:[@"~" stringByExpandingTildeInPath]];
 		[shareMounterTask setLaunchPath:[preferences valueForKey:@"sshfsPath"]];
-		//[shareMounterTask setLaunchPath:@"/bin/sh"];
 		
 		NSMutableArray *args = [NSMutableArray array];
 		[args addObject:@"-p"];

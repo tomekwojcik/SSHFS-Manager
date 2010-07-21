@@ -1,34 +1,34 @@
-//
-//  AppController.h
-//  SSHFS Manager
-//
-//  Created by Tomek Wójcik on 7/15/10.
-//  Copyright 2010 Tomek Wójcik. All rights reserved.
-//
-//  Redistribution and use in source and binary forms, with or without modification, are
-//  permitted provided that the following conditions are met:
-//  
-//  1. Redistributions of source code must retain the above copyright notice, this list of
-//  conditions and the following disclaimer.
-//  
-//  2. Redistributions in binary form must reproduce the above copyright notice, this list
-//  of conditions and the following disclaimer in the documentation and/or other materials
-//  provided with the distribution.
-//  
-//  THIS SOFTWARE IS PROVIDED BY <COPYRIGHT HOLDER> ``AS IS'' AND ANY EXPRESS OR IMPLIED
-//  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-//  FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> OR
-//  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-//  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-//   SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-//  ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-//  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-//  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-//  The views and conclusions contained in the software and documentation are those of the
-//  authors and should not be interpreted as representing official policies, either expressed
-//  or implied, of Tomek Wójcik.
-//
+/**
+ *  AppController.h
+ *  SSHFS Manager
+ *
+ *  Created by Tomek Wójcik on 7/15/10.
+ *  Copyright 2010 Tomek Wójcik. All rights reserved.
+ *
+ *  Redistribution and use in source and binary forms, with or without modification, are
+ *  permitted provided that the following conditions are met:
+ *  
+ *  1. Redistributions of source code must retain the above copyright notice, this list of
+ *  conditions and the following disclaimer.
+ *  
+ *  2. Redistributions in binary form must reproduce the above copyright notice, this list
+ *  of conditions and the following disclaimer in the documentation and/or other materials
+ *  provided with the distribution.
+ *  
+ *  THIS SOFTWARE IS PROVIDED BY <COPYRIGHT HOLDER> ``AS IS'' AND ANY EXPRESS OR IMPLIED
+ *  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ *  FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> OR
+ *  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ *  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ *   SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ *  ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ *  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ *  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ *  The views and conclusions contained in the software and documentation are those of the
+ *  authors and should not be interpreted as representing official policies, either expressed
+ *  or implied, of Tomek Wójcik.
+ */
 
 #import <Cocoa/Cocoa.h>
 #import "SSHFS_Manager_AppDelegate.h"
@@ -51,6 +51,7 @@
 	int sshfsFinderPID;
 	int shareMounterPID;
 	NSString *lastMountedLocalPath;
+	NSTimer *autoUpdateTimer;
 }
 
 @property (retain) NSString *currentTab;
@@ -68,6 +69,10 @@
 -(void)retrieveSshfsPathFromTask:(NSTask *)aTask;
 -(void)sshfsPathChangedFrom:(NSString *)oldPath to:(NSString *)newPath;
 -(void)managedObjectContextDidSave:(NSNotification *)aNotification;
+-(void)autoUpdateChangedFrom:(id)oldValue to:(id)newValue;
+-(void)autoUpdateIntervalChangedFrom:(NSNumber *)oldInterval to:(NSNumber *)newInterval;
+-(void)setUpAutoUpdateTimer;
+-(void)fireTimer:(NSTimer *)aTimer;
 
 -(IBAction)doMountShare:(id)sender;
 -(IBAction)doBrowseLocalPath:(id)sender;

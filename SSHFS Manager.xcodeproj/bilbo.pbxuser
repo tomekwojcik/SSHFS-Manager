@@ -78,8 +78,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 301497995;
-			PBXWorkspaceStateSaveDate = 301497995;
+			PBXPerProjectTemplateStateSaveDate = 301498071;
+			PBXWorkspaceStateSaveDate = 301498071;
 		};
 		perUserProjectItems = {
 			4C02CBDB11F58EDD008C6B1F /* PlistBookmark */ = 4C02CBDB11F58EDD008C6B1F /* PlistBookmark */;
@@ -95,10 +95,7 @@
 			4C569B2F11F7201500A99BE8 /* PBXTextBookmark */ = 4C569B2F11F7201500A99BE8 /* PBXTextBookmark */;
 			4C569B3011F7201500A99BE8 /* PBXTextBookmark */ = 4C569B3011F7201500A99BE8 /* PBXTextBookmark */;
 			4C5FD93C11F87E3B0063EE47 /* PBXTextBookmark */ = 4C5FD93C11F87E3B0063EE47 /* PBXTextBookmark */;
-			4C5FD94911F87E480063EE47 /* PBXTextBookmark */ = 4C5FD94911F87E480063EE47 /* PBXTextBookmark */;
 			4C69EC7111F5D4DF00FD4123 /* PBXTextBookmark */ = 4C69EC7111F5D4DF00FD4123 /* PBXTextBookmark */;
-			4CBD194A11F87E8E00516612 /* PBXTextBookmark */ = 4CBD194A11F87E8E00516612 /* PBXTextBookmark */;
-			4CBD195511F87EB300516612 /* PBXTextBookmark */ = 4CBD195511F87EB300516612 /* PBXTextBookmark */;
 			4CBD195611F87EB300516612 /* PBXTextBookmark */ = 4CBD195611F87EB300516612 /* PBXTextBookmark */;
 			4CBF4BEB11F8540D0083EEA7 /* PlistBookmark */ = 4CBF4BEB11F8540D0083EEA7 /* PlistBookmark */;
 			4CD6888011EEF3890089DC51 /* PBXTextBookmark */ = 4CD6888011EEF3890089DC51 /* PBXTextBookmark */;
@@ -114,6 +111,9 @@
 			4CEEEBE911F0331A00F2B8D1 /* PBXBookmark */ = 4CEEEBE911F0331A00F2B8D1 /* PBXBookmark */;
 			4CEEED0D11F0564200F2B8D1 /* PBXTextBookmark */ = 4CEEED0D11F0564200F2B8D1 /* PBXTextBookmark */;
 			4CEEED1B11F0575900F2B8D1 /* PBXTextBookmark */ = 4CEEED1B11F0575900F2B8D1 /* PBXTextBookmark */;
+			4CFAFE7011F87ED900C55A42 /* PBXTextBookmark */ = 4CFAFE7011F87ED900C55A42 /* PBXTextBookmark */;
+			4CFAFE7B11F87EE200C55A42 /* PBXTextBookmark */ = 4CFAFE7B11F87EE200C55A42 /* PBXTextBookmark */;
+			4CFAFE7C11F87EE200C55A42 /* PBXTextBookmark */ = 4CFAFE7C11F87EE200C55A42 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 4CD6888511EEF3890089DC51 /* Source Control */;
 		userBuildSettings = {
@@ -405,16 +405,6 @@
 		vrLen = 1723;
 		vrLoc = 0;
 	};
-	4C5FD94911F87E480063EE47 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 4CD6889811EEF3FC0089DC51 /* AppController.m */;
-		name = "AppController.m: 203";
-		rLen = 1;
-		rLoc = 8753;
-		rType = 0;
-		vrLen = 2282;
-		vrLoc = 7304;
-	};
 	4C69EC7111F5D4DF00FD4123 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 77C8280B06725ACE000B614F /* SSHFS_Manager_AppDelegate.h */;
@@ -423,26 +413,6 @@
 		rLoc = 4;
 		rType = 0;
 		vrLen = 856;
-		vrLoc = 0;
-	};
-	4CBD194A11F87E8E00516612 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 4CD6889811EEF3FC0089DC51 /* AppController.m */;
-		name = "AppController.m: 127";
-		rLen = 0;
-		rLoc = 5859;
-		rType = 0;
-		vrLen = 1711;
-		vrLoc = 0;
-	};
-	4CBD195511F87EB300516612 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 4CD6889811EEF3FC0089DC51 /* AppController.m */;
-		name = "AppController.m: 127";
-		rLen = 0;
-		rLoc = 5859;
-		rType = 0;
-		vrLen = 1711;
 		vrLoc = 0;
 	};
 	4CBD195611F87EB300516612 /* PBXTextBookmark */ = {
@@ -736,6 +706,36 @@
 		location = "SSHFS Manager";
 		modificationTime = 301490060.963963;
 		state = 2;
+	};
+	4CFAFE7011F87ED900C55A42 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4CD6889811EEF3FC0089DC51 /* AppController.m */;
+		name = "AppController.m: 127";
+		rLen = 0;
+		rLoc = 5859;
+		rType = 0;
+		vrLen = 1711;
+		vrLoc = 0;
+	};
+	4CFAFE7B11F87EE200C55A42 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4CD6889811EEF3FC0089DC51 /* AppController.m */;
+		name = "AppController.m: 127";
+		rLen = 0;
+		rLoc = 5859;
+		rType = 0;
+		vrLen = 1711;
+		vrLoc = 0;
+	};
+	4CFAFE7C11F87EE200C55A42 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4CD6889811EEF3FC0089DC51 /* AppController.m */;
+		name = "AppController.m: 203";
+		rLen = 1;
+		rLoc = 8753;
+		rType = 0;
+		vrLen = 2282;
+		vrLoc = 7304;
 	};
 	770B37EC0679A11B001EADE2 /* SSHFS_Manager_DataModel.xcdatamodel */ = {
 		uiCtxt = {

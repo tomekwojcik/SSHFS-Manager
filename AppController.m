@@ -35,7 +35,7 @@
 
 @implementation AppController
 -(id)init {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		statusItem = nil;
 		statusItemImage = nil;
 		currentTab = nil;
@@ -127,8 +127,8 @@
 	} // eof if()
 } // eof awakeFromNib
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(SEL)context {
-	[self performSelector:context withObject:[change objectForKey:@"old"] withObject:[change objectForKey:@"new"]];
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)selector {
+	[self performSelector:(SEL)selector withObject:[change objectForKey:@"old"] withObject:[change objectForKey:@"new"]];
 } // eof observeValueForKeyPath:ofObject:change:context:
 
 @synthesize currentTab;
@@ -200,7 +200,7 @@
 		[[NSApplication sharedApplication] terminate:nil];
 	} // eof if()
 	
-	if ([currentShares count] < 0) {
+	if ([currentShares count] == 0) {
 		NSMenuItem *noVolumesItem = [[[NSMenuItem alloc] initWithTitle:@"No volumes" action:nil keyEquivalent:@""] autorelease];
 		[noVolumesItem setEnabled:NO];
 		[myStatusItemMenu addItem:noVolumesItem];
@@ -211,7 +211,7 @@
 		NSEnumerator *sharesEnum = [currentShares objectEnumerator];
 		NSManagedObject *currentObject = nil;
 		NSMutableDictionary *currentData = nil;
-		while(currentObject = [sharesEnum nextObject]) {
+		while((currentObject = [sharesEnum nextObject])) {
 			BTHMenuItem *currentShareItem = [[[BTHMenuItem alloc] initWithTitle:[currentObject valueForKey:@"name"] action:@selector(doMountShare:) keyEquivalent:@""] autorelease];
 			[currentShareItem setTarget:self];
 			currentData = [NSMutableDictionary dictionaryWithCapacity:1];
@@ -273,6 +273,7 @@
 
 -(void)findSshfs {
 	if (currentTask != nil) {
+        [currentTask terminate];
 		[currentTask release];
 		currentTask = nil;
 	} // eof if()
@@ -345,9 +346,9 @@
 } // eof managedObjectContextDidSave:
 
 -(void)autoUpdateChangedFrom:(id)oldValue to:(id)newValue {
-	if (newValue == kCFBooleanTrue) {
+	if ((CFBooleanRef)newValue == kCFBooleanTrue) {
 		[self setUpAutoUpdateTimer];
-	} else if ((newValue == kCFBooleanFalse) && (autoUpdateTimer != nil)) {
+	} else if (((CFBooleanRef)newValue == kCFBooleanFalse) && (autoUpdateTimer != nil)) {
 		[autoUpdateTimer invalidate];
 		[autoUpdateTimer release];
 		autoUpdateTimer = nil;

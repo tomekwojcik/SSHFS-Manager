@@ -35,7 +35,7 @@
 
 @implementation BTHMenuItem
 -(id)initWithTitle:(NSString *)itemName action:(SEL)anAction keyEquivalent:(NSString *)charCode {
-	if (self = [super initWithTitle:itemName action:anAction keyEquivalent:charCode]) {
+	if ((self = [super initWithTitle:itemName action:anAction keyEquivalent:charCode])) {
 		itemData = nil;
 	} // eof if()
 	

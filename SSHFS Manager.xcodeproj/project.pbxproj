@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C3D623311F830D400A2F051 /* MLLoginItemsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D623211F830D400A2F051 /* MLLoginItemsManager.m */; };
 		2F7446990DB6B7EA00F9684A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F7446970DB6B7EA00F9684A /* MainMenu.xib */; };
 		4C25417D11F444E00030AF14 /* userDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C25417C11F444E00030AF14 /* userDefaults.plist */; };
 		4CD6889911EEF3FC0089DC51 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6889811EEF3FC0089DC51 /* AppController.m */; };
@@ -21,6 +22,8 @@
 
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0C3D623111F830D400A2F051 /* MLLoginItemsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoginItemsManager.h; sourceTree = "<group>"; };
+		0C3D623211F830D400A2F051 /* MLLoginItemsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoginItemsManager.m; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -62,6 +65,8 @@
 				4CD6889811EEF3FC0089DC51 /* AppController.m */,
 				4CEEED0411F054F000F2B8D1 /* BTHMenuItem.h */,
 				4CEEED0511F054F000F2B8D1 /* BTHMenuItem.m */,
+				0C3D623111F830D400A2F051 /* MLLoginItemsManager.h */,
+				0C3D623211F830D400A2F051 /* MLLoginItemsManager.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 				770B37ED0679A11B001EADE2 /* SSHFS_Manager_DataModel.xcdatamodel in Sources */,
 				4CD6889911EEF3FC0089DC51 /* AppController.m in Sources */,
 				4CEEED0611F054F000F2B8D1 /* BTHMenuItem.m in Sources */,
+				0C3D623311F830D400A2F051 /* MLLoginItemsManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +236,56 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0C12A43011F85B0000E35969 /* Debug super pedantic */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = NO;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_PROTOTYPE_CONVERSION = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = macosx10.5;
+			};
+			name = "Debug super pedantic";
+		};
+		0C12A43111F85B0000E35969 /* Debug super pedantic */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SSHFS_Manager_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = "SSHFS Manager";
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Debug super pedantic";
+		};
 		26FC0A850875C7B200E6366F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -270,6 +326,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -283,8 +340,10 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_FEEDBACK_DIRECTED_OPTIMIZATION = UseProfile;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
+				GCC_WARN_UNUSED_VARIABLE = NO;
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
 			};
@@ -297,6 +356,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				26FC0A850875C7B200E6366F /* Debug */,
+				0C12A43111F85B0000E35969 /* Debug super pedantic */,
 				26FC0A860875C7B200E6366F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -306,6 +366,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				26FC0A890875C7B200E6366F /* Debug */,
+				0C12A43011F85B0000E35969 /* Debug super pedantic */,
 				26FC0A8A0875C7B200E6366F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

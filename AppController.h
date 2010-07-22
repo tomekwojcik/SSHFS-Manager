@@ -52,6 +52,9 @@
 	int shareMounterPID;
 	NSString *lastMountedLocalPath;
 	NSTimer *autoUpdateTimer;
+	/*NSTask *sshFinderTask;
+	NSTask *shareMounterTask;*/
+	NSTask *currentTask;
 }
 
 @property (retain) NSString *currentTab;

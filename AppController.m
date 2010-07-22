@@ -45,6 +45,7 @@
 		shareMounterPID = 0;
 		lastMountedLocalPath = nil;
 		autoUpdateTimer = nil;
+		currentTask = nil;
 	} // eof if()
 	
 	return self;
@@ -67,8 +68,10 @@
 	[lastMountedLocalPath release]; lastMountedLocalPath = nil;
 	
 	if (autoUpdateTimer != nil) {
-		[autoUpdateTimer invalidate]; autoUpdateTimer = nil;
+		[autoUpdateTimer invalidate]; [autoUpdateTimer release]; autoUpdateTimer = nil;
 	} // eof if()
+	
+	[currentTask release]; currentTask = nil;
 	
 	[super dealloc];
 } // eof dealloc
@@ -269,26 +272,27 @@
 } // eof refreshStatusItemMenu
 
 -(void)findSshfs {
-	NSTask *sshfsFinderTask = [[NSTask alloc] init];
-	[sshfsFinderTask setCurrentDirectoryPath:[@"~" stringByExpandingTildeInPath]];
-	[sshfsFinderTask setLaunchPath:@"/usr/bin/which"];
+	if (currentTask != nil) {
+		[currentTask release];
+		currentTask = nil;
+	} // eof if()
 	
-	// The funny thing is that the environment doesn't reflect the user's env.
-	// So if sshfs is somewhere outside the default paths it won't be found.
-	/*NSProcessInfo *processInfo = [NSProcessInfo processInfo];
-	NSDictionary *processEnv = [processInfo environment];
-	[sshfsFinderTask setEnvironment:processEnv];*/
+	currentTask = [[NSTask alloc] init];
+	[currentTask setCurrentDirectoryPath:[@"~" stringByExpandingTildeInPath]];
+	[currentTask setLaunchPath:@"/usr/bin/which"];
 	
 	NSMutableArray *args = [NSMutableArray array];
 	[args addObject:@"sshfs"];
-	[sshfsFinderTask setArguments:args];
+	[currentTask setArguments:args];
 	
 	NSPipe *standardOutput = [[[NSPipe alloc] init] autorelease];
-	[sshfsFinderTask setStandardOutput:standardOutput];
+	[currentTask setStandardOutput:standardOutput];
 	
-	[sshfsFinderTask launch];
-	sshfsFinderPID = [sshfsFinderTask processIdentifier];
-	[self setIsWorking:YES];
+	[currentTask launch];
+	if ([currentTask isRunning] == YES) {
+		sshfsFinderPID = [currentTask processIdentifier];
+		[self setIsWorking:YES];
+	} // eof if()
 } // eof findSshfs
 
 -(void)checkATaskStatus:(NSNotification *)aNotification {
@@ -304,6 +308,8 @@
 		} // eof if()
 		
 		shareMounterPID = 0;
+		[currentTask release];
+		currentTask = nil;
 		[self setIsWorking:NO];
 	} // eof if()
 } // eof checkATaskStatus:
@@ -343,6 +349,7 @@
 		[self setUpAutoUpdateTimer];
 	} else if ((newValue == kCFBooleanFalse) && (autoUpdateTimer != nil)) {
 		[autoUpdateTimer invalidate];
+		[autoUpdateTimer release];
 		autoUpdateTimer = nil;
 	} // eof if()
 } // eof autoUpdateChangedFrom:to:
@@ -354,6 +361,8 @@
 -(void)setUpAutoUpdateTimer {
 	if (autoUpdateTimer != nil) {
 		[autoUpdateTimer invalidate];
+		[autoUpdateTimer release];
+		autoUpdateTimer = nil;
 	} // eof if()
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	NSTimeInterval timerInterval = [preferences integerForKey:@"autoUpdateInterval"] * 60;
@@ -382,9 +391,14 @@
 		
 		NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 		
-		NSTask *shareMounterTask = [[NSTask alloc] init];
-		[shareMounterTask setCurrentDirectoryPath:[@"~" stringByExpandingTildeInPath]];
-		[shareMounterTask setLaunchPath:[preferences valueForKey:@"sshfsPath"]];
+		if (currentTask != nil) {
+			[currentTask release];
+			currentTask = nil;
+		} // eof if()
+		
+		currentTask = [[NSTask alloc] init];
+		[currentTask setCurrentDirectoryPath:[@"~" stringByExpandingTildeInPath]];
+		[currentTask setLaunchPath:[preferences valueForKey:@"sshfsPath"]];
 		
 		NSMutableArray *args = [NSMutableArray array];
 		[args addObject:@"-p"];
@@ -398,12 +412,12 @@
 						[itemData objectForKey:@"options"],
 						[itemData objectForKey:@"volumeName"]]];
 		 
-		[shareMounterTask setArguments:args];
+		[currentTask setArguments:args];
 		
-		[shareMounterTask launch];
+		[currentTask launch];
 		
-		if ([shareMounterTask isRunning] == YES) {
-			shareMounterPID = [shareMounterTask processIdentifier];
+		if ([currentTask isRunning] == YES) {
+			shareMounterPID = [currentTask processIdentifier];
 			[self setIsWorking:YES];
 			[self setLastMountedLocalPath:[itemData objectForKey:@"localPath"]];
 		} // eof if()

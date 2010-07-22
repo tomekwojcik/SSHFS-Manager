@@ -273,6 +273,7 @@
 
 -(void)findSshfs {
 	if (currentTask != nil) {
+        [currentTask terminate];
 		[currentTask release];
 		currentTask = nil;
 	} // eof if()
@@ -345,9 +346,9 @@
 } // eof managedObjectContextDidSave:
 
 -(void)autoUpdateChangedFrom:(id)oldValue to:(id)newValue {
-	if (newValue == kCFBooleanTrue) {
+	if ((CFBooleanRef)newValue == kCFBooleanTrue) {
 		[self setUpAutoUpdateTimer];
-	} else if ((newValue == kCFBooleanFalse) && (autoUpdateTimer != nil)) {
+	} else if (((CFBooleanRef)newValue == kCFBooleanFalse) && (autoUpdateTimer != nil)) {
 		[autoUpdateTimer invalidate];
 		[autoUpdateTimer release];
 		autoUpdateTimer = nil;

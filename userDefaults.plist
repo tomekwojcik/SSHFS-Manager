@@ -8,7 +8,5 @@
 	<false/>
 	<key>autoUpdateInterval</key>
 	<integer>1</integer>
-	<key>launchOnLogin</key>
-	<false/>
 </dict>
 </plist>

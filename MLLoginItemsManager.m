@@ -14,7 +14,7 @@ static void loginItemsChanged(LSSharedFileListRef l, void *self);
 @implementation MLLoginItemsManager
 
 - (id)init {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         list = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
         NSAssert(list != nil, @"File list creation failed...");
 

@@ -439,10 +439,12 @@
 } // eof doAddShare:
 
 -(IBAction)showPreferences:(id)sender {
+	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 	[preferencesWindow makeKeyAndOrderFront:sender];
 } // eof showPreferences:
 
 -(IBAction)showAbout:(id)sender {
+	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 	[[NSApplication sharedApplication] orderFrontStandardAboutPanel:sender];
 } // eof showAbout:
 

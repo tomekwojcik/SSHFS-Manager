@@ -216,11 +216,11 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>4CDC069D11F83D3400EC8EBB</string>
+						<string>4CA5289511F83F1E0015C25F</string>
 						<key>history</key>
 						<array>
 							<string>4C4F0E7B11F8204F0090077E</string>
-							<string>4C3DC7E411F835F40056AECB</string>
+							<string>4CA5288411F83F020015C25F</string>
 						</array>
 						<key>prevStack</key>
 						<array>
@@ -330,8 +330,9 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>29</integer>
-									<integer>28</integer>
+									<integer>7</integer>
+									<integer>3</integer>
+									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
@@ -382,7 +383,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>4CDC069C11F83D3400EC8EBB</string>
+										<string>4CA5289411F83F1E0015C25F</string>
 										<key>history</key>
 										<array>
 											<string>4CD6895C11EF30610089DC51</string>
@@ -397,7 +398,7 @@
 											<string>4C569B3011F7201500A99BE8</string>
 											<string>4C569B4711F7206A00A99BE8</string>
 											<string>4CDC069511F83D1200EC8EBB</string>
-											<string>4C569B1F11F71EE900A99BE8</string>
+											<string>4CDC069C11F83D3400EC8EBB</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -414,7 +415,6 @@
 											<string>4CEEED0D11F0564200F2B8D1</string>
 											<string>4CEEED1B11F0575900F2B8D1</string>
 											<string>4C02CBDB11F58EDD008C6B1F</string>
-											<string>4CDC069611F83D1200EC8EBB</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -472,9 +472,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>4CDC069811F83D1200EC8EBB</string>
+				<string>4CA5287E11F83DFC0015C25F</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>4CDC069911F83D1200EC8EBB</string>
+				<string>4CA5287F11F83DFC0015C25F</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -610,9 +610,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>4CA5289211F83F130015C25F</string>
+		<string>4CA5289311F83F130015C25F</string>
+		<string>1C78EAAD065D492600B07095</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>4CD688B211EEF6080089DC51</string>
-		<string>4C569B2B11F71FAD00A99BE8</string>
 		<string>/Users/bilbo/My Projects/SSHFS-Manager/SSHFS Manager.xcodeproj</string>
+		<string>4C569B2B11F71FAD00A99BE8</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 59 1280 719 0 0 1280 778 </string>
@@ -692,7 +696,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>4CD688B211EEF6080089DC51</string>
-				<string>4CDC069B11F83D1200EC8EBB</string>
+				<string>4CA5288911F83F130015C25F</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -812,13 +816,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>4C3DC7DD11F8300E0056AECB</string>
+				<string>4CA5288A11F83F130015C25F</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>4C3DC7DE11F8300E0056AECB</string>
-				<string>4C3DC7DF11F8300E0056AECB</string>
-				<string>4C3DC7E011F8300E0056AECB</string>
-				<string>4C3DC7E111F8300E0056AECB</string>
-				<string>4C3DC7E211F8300E0056AECB</string>
+				<string>4CA5288B11F83F130015C25F</string>
+				<string>4CA5288C11F83F130015C25F</string>
+				<string>4CA5288D11F83F130015C25F</string>
+				<string>4CA5288E11F83F130015C25F</string>
+				<string>4CA5288F11F83F130015C25F</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -937,8 +941,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -974,7 +976,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>4C4F0E8711F820A80090077E</string>
+				<string>4CA5289011F83F130015C25F</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
@@ -984,7 +986,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>

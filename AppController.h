@@ -33,6 +33,13 @@
 #import <Cocoa/Cocoa.h>
 #import "SSHFS_Manager_AppDelegate.h"
 
+typedef enum {
+	BTHNoopOperationType = 0,
+	BTHFindSsshfsOperationType = 1,
+	BTHMountShareOperationType = 2,
+	BTHUnmountShareOperationType = 3
+} BTHOperationType;
+
 @interface AppController : NSObject {
 	IBOutlet NSMenu *statusItemMenu;
 	IBOutlet NSWindow *preferencesWindow;
@@ -48,12 +55,9 @@
 	NSStatusItem *statusItem;
 	NSImage *statusItemImage;
 	
-	int sshfsFinderPID;
-	int shareMounterPID;
+	BTHOperationType currentOperationType;
 	NSString *lastMountedLocalPath;
 	NSTimer *autoUpdateTimer;
-	/*NSTask *sshFinderTask;
-	NSTask *shareMounterTask;*/
 	NSTask *currentTask;
 }
 
@@ -76,6 +80,8 @@
 -(void)autoUpdateIntervalChangedFrom:(NSNumber *)oldInterval to:(NSNumber *)newInterval;
 -(void)setUpAutoUpdateTimer;
 -(void)fireTimer:(NSTimer *)aTimer;
+-(void)mountShareWithSettings:(NSDictionary *)shareSettings;
+-(void)unmountShareAtPath:(NSString *)shareLocalPath;
 
 -(IBAction)doMountShare:(id)sender;
 -(IBAction)doBrowseLocalPath:(id)sender;

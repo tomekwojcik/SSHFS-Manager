@@ -41,8 +41,7 @@
 		currentTab = nil;
 		hasSshfs = NO;
 		isWorking = NO;
-		sshfsFinderPID = 0;
-		shareMounterPID = 0;
+		currentOperationType = BTHNoopOperationType;
 		lastMountedLocalPath = nil;
 		autoUpdateTimer = nil;
 		currentTask = nil;
@@ -291,15 +290,15 @@
 	
 	[currentTask launch];
 	if ([currentTask isRunning] == YES) {
-		sshfsFinderPID = [currentTask processIdentifier];
+		currentOperationType = BTHFindSsshfsOperationType;
 		[self setIsWorking:YES];
 	} // eof if()
 } // eof findSshfs
 
 -(void)checkATaskStatus:(NSNotification *)aNotification {
-	if ([[aNotification object] processIdentifier] == sshfsFinderPID) {
+	if (currentOperationType == BTHFindSsshfsOperationType) {
 		[self retrieveSshfsPathFromTask:[aNotification object]];
-	} else if ([[aNotification object] processIdentifier] == shareMounterPID) {
+	} else if (currentOperationType == BTHMountShareOperationType) {
 		if ([[aNotification object] terminationStatus] != 0) {
 			NSError *error = [NSError errorWithDomain:@"SSHFSManagerError" code:-2 userInfo:[NSDictionary dictionaryWithObject:@"Could not mount the selected share." forKey:NSLocalizedDescriptionKey]];	
 			[[NSApplication sharedApplication] presentError:error];
@@ -307,12 +306,20 @@
 		} else {
 			[self refreshStatusItemMenu];
 		} // eof if()
-		
-		shareMounterPID = 0;
-		[currentTask release];
-		currentTask = nil;
-		[self setIsWorking:NO];
+	} else if (currentOperationType == BTHUnmountShareOperationType) {
+		if ([[aNotification object] terminationStatus] != 0) {
+			NSError *error = [NSError errorWithDomain:@"SSHFSManagerError" code:-3 userInfo:[NSDictionary dictionaryWithObject:@"Could not unmount the selected share." forKey:NSLocalizedDescriptionKey]];	
+			[[NSApplication sharedApplication] presentError:error];
+			[self setLastMountedLocalPath:nil];
+		} else {
+			[self refreshStatusItemMenu];
+		} // eof if()
 	} // eof if()
+	
+	[currentTask release];
+	currentTask = nil;
+	currentOperationType = BTHNoopOperationType;
+	[self setIsWorking:NO];
 } // eof checkATaskStatus:
 
 -(void)retrieveSshfsPathFromTask:(NSTask *)aTask {
@@ -337,8 +344,6 @@
 			//[NSApp presentError:error];
 		} // eof if()
 	} // eof if()
-	sshfsFinderPID = 0;
-	[self setIsWorking:NO];
 } // eof retrieveSshfsPathFromTask:
 
 -(void)managedObjectContextDidSave:(NSNotification *)aNotification {
@@ -368,7 +373,6 @@
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	NSTimeInterval timerInterval = [preferences integerForKey:@"autoUpdateInterval"] * 60;
 	NSDate *startDate = [NSDate dateWithTimeIntervalSinceNow:timerInterval];
-	NSLog(@"Initializing timer...");
 	autoUpdateTimer = [[NSTimer alloc] initWithFireDate:startDate interval:timerInterval target:self selector:@selector(fireTimer:) userInfo:nil repeats:YES];
 	NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
 	[runLoop addTimer:autoUpdateTimer forMode:NSDefaultRunLoopMode];
@@ -378,49 +382,74 @@
 	[self refreshStatusItemMenu];
 } // eof testTimer
 
--(IBAction)doMountShare:(id)sender {
-	if ([sender state] == NSOnState) {
-		return;
+-(void)mountShareWithSettings:(NSDictionary *)shareSettings {
+	NSString *remotePath = [shareSettings objectForKey:@"remotePath"];
+	if (remotePath == nil) {
+		remotePath = @"";
 	} // eof if()
 	
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+	
+	if (currentTask != nil) {
+		[currentTask release];
+		currentTask = nil;
+	} // eof if()
+	
+	currentTask = [[NSTask alloc] init];
+	[currentTask setCurrentDirectoryPath:[@"~" stringByExpandingTildeInPath]];
+	[currentTask setLaunchPath:[preferences valueForKey:@"sshfsPath"]];
+	
+	NSMutableArray *args = [NSMutableArray array];
+	[args addObject:@"-p"];
+	[args addObject:[NSString stringWithFormat:@"%d", [[shareSettings objectForKey:@"port"] intValue]]];
+	[args addObject:[NSString stringWithFormat:@"%@@%@:%@",
+					 [shareSettings objectForKey:@"login"],
+					 [shareSettings objectForKey:@"host"],
+					 remotePath]];
+	[args addObject:[NSString stringWithFormat:@"%@", [shareSettings objectForKey:@"localPath"]]];
+	[args addObject:[NSString stringWithFormat:@"-o%@,volname=%@",
+					 [shareSettings objectForKey:@"options"],
+					 [shareSettings objectForKey:@"volumeName"]]];
+	
+	[currentTask setArguments:args];
+	
+	[currentTask launch];
+	
+	if ([currentTask isRunning] == YES) {
+		currentOperationType = BTHMountShareOperationType;
+		[self setIsWorking:YES];
+		[self setLastMountedLocalPath:[shareSettings objectForKey:@"localPath"]];
+	} // eof if()
+} // eof mountShareWithSetting:
+
+-(void)unmountShareAtPath:(NSString *)shareLocalPath {
+	if (currentTask != nil) {
+		[currentTask release];
+		currentTask = nil;
+	} // eof if()
+	
+	currentTask = [[NSTask alloc] init];
+	[currentTask setLaunchPath:@"/sbin/umount"];
+	[currentTask setArguments:[NSArray arrayWithObject:shareLocalPath]];
+	
+	[currentTask launch];
+	
+	if ([currentTask isRunning] == YES) {
+		currentOperationType = BTHUnmountShareOperationType;
+		[self setIsWorking:YES];
+	} // eof if()
+} // eof unmountShareAtPath:
+
+-(IBAction)doMountShare:(id)sender {
 	NSDictionary *itemData = [sender itemData];
-	if (itemData != nil) {
-		NSString *remotePath = [itemData objectForKey:@"remotePath"];
-		if (remotePath == nil) {
-			remotePath = @"";
+	if ([sender state] == NSOffState) {
+		if (itemData != nil) {
+			[self mountShareWithSettings:itemData];
 		} // eof if()
-		
-		NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-		
-		if (currentTask != nil) {
-			[currentTask release];
-			currentTask = nil;
-		} // eof if()
-		
-		currentTask = [[NSTask alloc] init];
-		[currentTask setCurrentDirectoryPath:[@"~" stringByExpandingTildeInPath]];
-		[currentTask setLaunchPath:[preferences valueForKey:@"sshfsPath"]];
-		
-		NSMutableArray *args = [NSMutableArray array];
-		[args addObject:@"-p"];
-		[args addObject:[NSString stringWithFormat:@"%d", [[itemData objectForKey:@"port"] intValue]]];
-		[args addObject:[NSString stringWithFormat:@"%@@%@:%@",
-						[itemData objectForKey:@"login"],
-						[itemData objectForKey:@"host"],
-						remotePath]];
-		[args addObject:[NSString stringWithFormat:@"%@", [itemData objectForKey:@"localPath"]]];
-		[args addObject:[NSString stringWithFormat:@"-o%@,volname=%@",
-						[itemData objectForKey:@"options"],
-						[itemData objectForKey:@"volumeName"]]];
-		 
-		[currentTask setArguments:args];
-		
-		[currentTask launch];
-		
-		if ([currentTask isRunning] == YES) {
-			shareMounterPID = [currentTask processIdentifier];
-			[self setIsWorking:YES];
-			[self setLastMountedLocalPath:[itemData objectForKey:@"localPath"]];
+	} else {
+		NSString *localPath = [itemData objectForKey:@"localPath"];
+		if (localPath != nil) {
+			[self unmountShareAtPath:localPath];
 		} // eof if()
 	} // eof if()
 } // eof doMountShare:

@@ -15,9 +15,9 @@
  *  of conditions and the following disclaimer in the documentation and/or other materials
  *  provided with the distribution.
  *  
- *  THIS SOFTWARE IS PROVIDED BY <COPYRIGHT HOLDER> ``AS IS'' AND ANY EXPRESS OR IMPLIED
+ *  THIS SOFTWARE IS PROVIDED BY Tomek Wójcik ``AS IS'' AND ANY EXPRESS OR IMPLIED
  *  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
- *  FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> OR
+ *  FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL Tomek Wójcik OR
  *  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
  *  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
  *   SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
@@ -43,6 +43,7 @@
 		isWorking = NO;
 		currentOperationType = BTHNoopOperationType;
 		lastMountedLocalPath = nil;
+		lastUnmountedLocalPath = nil;
 		autoUpdateTimer = nil;
 		currentTask = nil;
 	} // eof if()
@@ -65,6 +66,7 @@
 	[statusItemImage release]; statusItemImage = nil;
 	[currentTab release]; currentTab = nil;
 	[lastMountedLocalPath release]; lastMountedLocalPath = nil;
+	[lastUnmountedLocalPath release]; lastUnmountedLocalPath = nil;
 	
 	if (autoUpdateTimer != nil) {
 		[autoUpdateTimer invalidate]; [autoUpdateTimer release]; autoUpdateTimer = nil;
@@ -134,6 +136,7 @@
 @synthesize hasSshfs;
 @synthesize isWorking;
 @synthesize lastMountedLocalPath;
+@synthesize lastUnmountedLocalPath;
 
 -(void)tabChangedFrom:(NSString *)oldTab to:(NSString *)newTab {
 	if ([newTab isEqualToString:@"Shares"]) {
@@ -171,6 +174,11 @@
 			NSString *filename = [filenames objectAtIndex:0];
 			NSManagedObject *currentShare = [[sharesController selectedObjects] objectAtIndex:0];
 			[currentShare setValue:filename forKey:@"localPath"];
+			
+			NSString *volumeName = [currentShare valueForKey:@"volumeName"];
+			if ((volumeName == nil) || ([volumeName isEqualToString:@""] == YES)) {
+				[currentShare setValue:[filename lastPathComponent] forKey:@"volumeName"];
+			} // eof if()
 		} // eof if()
 	} // eof if()
 } // eof localPathBrowseSheetDidEnd:returnCode:contextInfo:
@@ -228,7 +236,11 @@
 			
 			NSString *localPath = [currentObject valueForKey:@"localPath"];
 			[currentData setObject:localPath forKey:@"localPath"];
-			if (([mountedFileSystems containsObject:localPath]) || ([localPath isEqualToString:[self lastMountedLocalPath]] == YES)) {
+			if ((currentOperationType == BTHMountShareOperationType) && ([localPath isEqualToString:[self lastMountedLocalPath]] == YES)) {
+				[currentShareItem setState:NSOnState];
+			} else if ((currentOperationType == BTHUnmountShareOperationType) && ([localPath isEqualToString:[self lastUnmountedLocalPath]] == YES)) {
+				[currentShareItem setState:NSOffState];
+			} else if ([mountedFileSystems containsObject:localPath] == YES) {
 				[currentShareItem setState:NSOnState];
 			} else {
 				[currentShareItem setState:NSOffState];
@@ -310,7 +322,7 @@
 		if ([[aNotification object] terminationStatus] != 0) {
 			NSError *error = [NSError errorWithDomain:@"SSHFSManagerError" code:-3 userInfo:[NSDictionary dictionaryWithObject:@"Could not unmount the selected share." forKey:NSLocalizedDescriptionKey]];	
 			[[NSApplication sharedApplication] presentError:error];
-			[self setLastMountedLocalPath:nil];
+			[self setLastUnmountedLocalPath:nil];
 		} else {
 			[self refreshStatusItemMenu];
 		} // eof if()
@@ -436,6 +448,7 @@
 	
 	if ([currentTask isRunning] == YES) {
 		currentOperationType = BTHUnmountShareOperationType;
+		[self setLastUnmountedLocalPath:shareLocalPath];
 		[self setIsWorking:YES];
 	} // eof if()
 } // eof unmountShareAtPath:

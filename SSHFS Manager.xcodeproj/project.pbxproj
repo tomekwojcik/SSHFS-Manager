@@ -12,6 +12,7 @@
 		4C25417D11F444E00030AF14 /* userDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C25417C11F444E00030AF14 /* userDefaults.plist */; };
 		4CD6889911EEF3FC0089DC51 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6889811EEF3FC0089DC51 /* AppController.m */; };
 		4CD688C311EEF6250089DC51 /* drive_web.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD688C211EEF6250089DC51 /* drive_web.png */; };
+		4CDF1DCA1207F37C00F57919 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4CDF1DC91207F37C00F57919 /* Credits.rtf */; };
 		4CEEED0611F054F000F2B8D1 /* BTHMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEEED0511F054F000F2B8D1 /* BTHMenuItem.m */; };
 		770B37ED0679A11B001EADE2 /* SSHFS_Manager_DataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 770B37EC0679A11B001EADE2 /* SSHFS_Manager_DataModel.xcdatamodel */; };
 		77C8280E06725ACE000B614F /* SSHFS_Manager_AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C8280C06725ACE000B614F /* SSHFS_Manager_AppDelegate.m */; };
@@ -34,6 +35,7 @@
 		4CD6889711EEF3FC0089DC51 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		4CD6889811EEF3FC0089DC51 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
 		4CD688C211EEF6250089DC51 /* drive_web.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drive_web.png; sourceTree = "<group>"; };
+		4CDF1DC91207F37C00F57919 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		4CEEED0411F054F000F2B8D1 /* BTHMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTHMenuItem.h; sourceTree = "<group>"; };
 		4CEEED0511F054F000F2B8D1 /* BTHMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTHMenuItem.m; sourceTree = "<group>"; };
 		770B37EC0679A11B001EADE2 /* SSHFS_Manager_DataModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = SSHFS_Manager_DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4CDF1DC91207F37C00F57919 /* Credits.rtf */,
 				4CD688C211EEF6250089DC51 /* drive_web.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -195,6 +198,7 @@
 				2F7446990DB6B7EA00F9684A /* MainMenu.xib in Resources */,
 				4CD688C311EEF6250089DC51 /* drive_web.png in Resources */,
 				4C25417D11F444E00030AF14 /* userDefaults.plist in Resources */,
+				4CDF1DCA1207F37C00F57919 /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

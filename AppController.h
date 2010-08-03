@@ -15,9 +15,9 @@
  *  of conditions and the following disclaimer in the documentation and/or other materials
  *  provided with the distribution.
  *  
- *  THIS SOFTWARE IS PROVIDED BY <COPYRIGHT HOLDER> ``AS IS'' AND ANY EXPRESS OR IMPLIED
+ *  THIS SOFTWARE IS PROVIDED BY Tomek Wójcik ``AS IS'' AND ANY EXPRESS OR IMPLIED
  *  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
- *  FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> OR
+ *  FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL Tomek Wójcik OR
  *  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
  *  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
  *   SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
@@ -57,6 +57,7 @@ typedef enum {
 	
 	BTHOperationType currentOperationType;
 	NSString *lastMountedLocalPath;
+	NSString *lastUnmountedLocalPath;
 	NSTimer *autoUpdateTimer;
 	NSTask *currentTask;
 }
@@ -65,6 +66,7 @@ typedef enum {
 @property BOOL hasSshfs;
 @property BOOL isWorking;
 @property (retain) NSString *lastMountedLocalPath;
+@property (retain) NSString *lastUnmountedLocalPath;
 
 -(void)tabChangedFrom:(NSString *)oldTab to:(NSString *)newTab;
 -(void)sharesSelectionChangedFrom:(id)oldIndex to:(id)newIndex;
